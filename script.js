@@ -83,12 +83,25 @@ sayHelloButton.addEventListener('click', sayHello)
     Handle the promise that's returned with a .then, which you should pass a callback function to. Inside the callback function, console.log the response's data (in the intermediate instructions we'll come back to this function and add HTML).
 */ 
 
-const ohMy = () => {
-    axios.get('http://localhost:3000/animals')
-    .then((res) => {
-        console.log(res.data)
-    })
-    .catch((err) => console.log(err))
+
+const ohMy = async () => {       //const ohMy = () => {
+
+    // axios.get('http://localhost:3000/animals')
+    // .then((res) => {
+    //     for (let i = 0; i < res.data.length; i++) {
+    //         let newParagraph = document.createElement('p')
+    //         newParagraph.textContent = res.data[i]  
+    //         document.body.appendChild(newParagraph)
+    //     }
+    // })
+    // .catch((err) => console.log(err))
+
+    try {
+        const {data} = await axios.get('http://localhost:3000/animals')
+        console.log(data);
+    } catch(e) {
+        console.log(e)
+    }
 }
 
 document.getElementById('animals-button').addEventListener('click', ohMy)
@@ -114,7 +127,7 @@ const repeatParam = document.querySelector('#repeat-button')
 const repeatMyParam = () => {
     axios.get('http://localhost:3000/repeat/Hi')
     .then((res) => {
-        let repeatText = document.getElementById('repeat-text')
+        const repeatText = document.getElementById('repeat-text')
         repeatText.textContent = res.data
     })
     .catch((err) => console.log(err))
